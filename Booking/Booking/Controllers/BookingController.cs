@@ -20,15 +20,20 @@ namespace Booking.Controllers
         }
 
         // GET: Booking
+        // Index, si no hay ciudades envia a API a crear ciudades, sino envia a la vista con bookingVM
         public ActionResult Index()
         {
             var cities = context.Cities.ToList();
+
             if (cities.Count() == 0)
               return Redirect("http://localhost:63293/api/bookingapi");
 
             BookingVM bookingVM = new BookingVM();
+
             var listcities = context.Cities.ToList();
+
             bookingVM.Cities = listcities;
+
             return View(bookingVM);
         }
 

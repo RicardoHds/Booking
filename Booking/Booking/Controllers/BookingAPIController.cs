@@ -24,6 +24,8 @@ namespace Booking.Controllers
             context = new BookingContext();
         }
 
+        // GET: api/bookingapi
+        // Si no existe registro de ciudades, vamos al metodo CreateCities()
         [HttpGet]
         public IHttpActionResult HasCities()
         {
@@ -35,11 +37,14 @@ namespace Booking.Controllers
             return Redirect("http://localhost:63293/booking");
         }
 
+        // POST: api/bookingapi/create
+        // Crear o registrar booking
         [Route("api/bookingapi/create")]
         [HttpPost]
         public IHttpActionResult Create(BookingVM bookingVM)
         {
             string iconNumber = "0";
+
             string url = $"http://api.openweathermap.org/data/2.5/weather?id={bookingVM.Books.City}&appid=baf1fe0533f687b12806e917234bfc01";
 
             HttpClient client = new HttpClient();
@@ -98,6 +103,7 @@ namespace Booking.Controllers
             return Ok(bookingVM);
          }
 
+        // GET: api/bookingapi/id
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
@@ -110,7 +116,8 @@ namespace Booking.Controllers
 
             return Ok(bookDto);
         }
-
+        
+        // Create Cities
         public IHttpActionResult CreateCities()
         {
             string content = Task.Run(GetCities).Result;
@@ -129,6 +136,7 @@ namespace Booking.Controllers
             return HasCities();
         }
 
+        // Obetner contenido del servicio de ciudades
         static async Task<string> GetCities()
         {
             string url = "http://middleware-neoris.s3-website-us-west-1.amazonaws.com/";
@@ -139,16 +147,5 @@ namespace Booking.Controllers
 
             return content;
         }
-
-        static async Task<string> GetWeather()
-        {
-            string url = "http://api.openweathermap.org/data/2.5/weather?id=4004156&&appid=baf1fe0533f687b12806e917234bfc01";
-
-            HttpClient client = new HttpClient();
-
-            string content = await client.GetStringAsync(url);
-
-            return content;
-        }
-  }
+    }
 }
