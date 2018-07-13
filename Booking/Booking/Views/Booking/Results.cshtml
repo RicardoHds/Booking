@@ -1,0 +1,22 @@
+@model Booking.ViewModels.BookingVM
+@{
+  ViewBag.Title = "Results";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-10">
+  <div class="jumbotron" style="margin-top: 50px;">
+    <h1>Thank you for booking!!</h1>
+    <p>@Model.Books.Name @Model.Books.Lastname</p>
+    <p>Confirmation send to: @Model.Books.Email</p>
+    <p>Date to return: @Model.Date.ToString("dd/MM/yyyy")</p>
+    <p>Welcome to: @Model.CityName</p>
+    <p>Weather for your next trip: @Model.Books.Message</p>
+  </div>
+  
+
+</div>
+<div class=" jumbotron col-md-2 text-center" style="background-color: gray; margin-top: 50px;">
+  <p style="color: white"><strong>Weather: </strong></p>
+  <img src="@($"http://openweathermap.org/img/w/{Model.Books.Icon}.png")" />
+</div>

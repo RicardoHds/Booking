@@ -14,6 +14,9 @@ namespace Booking.App_Start
         {
             CreateMap<City, CityDto>();
             CreateMap<CityDto, City>();
+
+            CreateMap<Book, BookDto>();
+            CreateMap<BookDto, Book>();
         }
     }
 }

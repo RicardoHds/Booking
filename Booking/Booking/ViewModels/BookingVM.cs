@@ -10,5 +10,7 @@ namespace Booking.ViewModels
   {
     public List<City> Cities { get; set; }
     public Book Books { get; set; }
+    public string CityName { get; set; }
+    public DateTime Date { get; set; }
   }
 }
