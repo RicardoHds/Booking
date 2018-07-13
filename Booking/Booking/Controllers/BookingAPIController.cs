@@ -44,10 +44,10 @@ namespace Booking.Controllers
 
             HttpClient client = new HttpClient();
 
-            Task<string> i = client.GetStringAsync(url);
-            i.Wait();
+            Task<string> infoWeather = client.GetStringAsync(url);
+            infoWeather.Wait();
           
-            string content = i.Result;
+            string content = infoWeather.Result;
 
             int id = bookingVM.Books.City;
 
@@ -57,10 +57,10 @@ namespace Booking.Controllers
 
             RootObject info = JsonConvert.DeserializeObject<RootObject>(content);
       
-            foreach(var inf in info.weather)
+            foreach(var weather in info.weather)
             {
-                bookingVM.Books.Icon = inf.icon;
-                iconNumber = Convert.ToString(inf.id);
+                bookingVM.Books.Icon = weather.icon;
+                iconNumber = Convert.ToString(weather.id);
             }
 
             char iconChar = iconNumber.First();
@@ -96,7 +96,7 @@ namespace Booking.Controllers
             context.SaveChanges();
 
             return Ok(bookingVM);
-    }
+         }
 
         [HttpGet]
         public IHttpActionResult Get(int id)
@@ -142,13 +142,13 @@ namespace Booking.Controllers
 
         static async Task<string> GetWeather()
         {
-          string url = "http://api.openweathermap.org/data/2.5/weather?id=4004156&&appid=baf1fe0533f687b12806e917234bfc01";
+            string url = "http://api.openweathermap.org/data/2.5/weather?id=4004156&&appid=baf1fe0533f687b12806e917234bfc01";
 
-          HttpClient client = new HttpClient();
+            HttpClient client = new HttpClient();
 
-          string content = await client.GetStringAsync(url);
+            string content = await client.GetStringAsync(url);
 
-          return content;
+            return content;
         }
   }
 }

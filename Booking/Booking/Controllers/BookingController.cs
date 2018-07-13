@@ -63,28 +63,19 @@ namespace Booking.Controllers
             Book booking = JsonConvert.DeserializeObject<Book>(result);
             City city = context.Cities.First(c => c.CityId == booking.City);
 
-      // El registro de booking utilizarlo para construir viewmodel
-          BookingVM vm = new BookingVM
-          {
-            Books = booking,
-            CityName = city.Name
-          };
+            // El registro de booking utilizarlo para construir viewmodel
+            BookingVM vm = new BookingVM
+            {
+              Books = booking,
+              CityName = city.Name
+            };
 
-            // City ciudad = vm.Cities.Find(c => c.CityId == vm.Books.City);
-            // vm.CityName = ciudad.Country;
-
-              // retornar vista con viewmodel
+            // retornar vista con viewmodel
             DateTime date = DateTime.Now.AddDays(vm.Books.Duration);
 
             vm.Date = date;
 
             return View(vm);
-        }
-
-        [HttpGet]
-        public ActionResult Show()
-        {
-            return View();
         }
     }
 }
