@@ -53,8 +53,6 @@ namespace Booking.Controllers
 
             bookingVM.CityName = "null";
 
-            bookingVM.Date = DateTime.Today;
-
             RootObject info = JsonConvert.DeserializeObject<RootObject>(content);
       
             foreach(var weather in info.weather)
@@ -94,6 +92,8 @@ namespace Booking.Controllers
 
             context.Books.Add(bookingVM.Books);
             context.SaveChanges();
+
+            bookingVM.Date = DateTime.Today;
 
             return Ok(bookingVM);
          }
